@@ -1,0 +1,34 @@
+# ─── Raw Criteo dataset (huge; download separately — see docs/REAL_DATA_DOWNLOAD.md) ─
+train/
+test/
+*.txt
+.~lock.*#            # LibreOffice lock files
+
+# ─── Generated / enriched data ──────────────────────────────────────
+data/
+*.csv
+enriched_clicks.csv
+
+# ─── Credentials & secrets ──────────────────────────────────────────
+.env
+*.pgpass
+credentials*.json
+
+# ─── Python ─────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# ─── Virtual environments ───────────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ─── Power BI working files (commit a screenshot/link instead if large) ─
+# *.pbix
+
+# ─── OS files ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
