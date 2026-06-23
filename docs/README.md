@@ -1,4 +1,4 @@
-# AdVigilance: Real-Time Programmatic Ad-Fraud & Bot Detection Engine
+# AdVigilance: Real-Time Programmatic Ad-Fraud & Bot Detection Engine - Summary Report
 
 <div align="center">
 
@@ -494,16 +494,6 @@ fraud_score = model.predict_proba(new_click_features)
 ## 📄 License
 
 This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
-
----
-
-## 🤝 Contributing
-
-Contributions welcome! Areas of interest:
-- Additional fraud detection algorithms
-- Integration with commercial threat intelligence feeds
-- Performance optimizations for billion-row tables
-- Visualization improvements
 
 ---
 
