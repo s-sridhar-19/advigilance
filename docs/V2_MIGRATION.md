@@ -99,60 +99,6 @@ Connect Power BI:
 
 ---
 
-### 4. Enhanced Documentation
-
-**New Documentation:**
-- 📄 `docs/DATA_SOURCE_GUIDE.md` - Criteo vs Google RTB comparison
-- 📄 `docs/POWERBI_INTEGRATION.md` - Complete Power BI setup (50+ pages)
-- 📄 `docs/V2_MIGRATION.md` - This file
-
-**Updated Documentation:**
-- 📄 `README.md` - Reflects v2.0 features
-- 📄 `QUICKSTART.md` - Updated for automated setup
-- 📄 `docs/ARCHITECTURE.md` - Production scale considerations
-
----
-
-## 🔄 Migration Guide (v1.0 → v2.0)
-
-### For Existing Users
-
-If you already have v1.0 installed, here's how to upgrade:
-
-#### Option A: Fresh Install (Recommended)
-
-```bash
-# Backup existing database
-pg_dump advigilance > advigilance_v1_backup.sql
-
-# Pull latest changes
-git pull origin main
-
-# Run v2.0 setup
-./setup_realdata.sh
-```
-
-#### Option B: In-Place Upgrade
-
-```bash
-# Pull latest code
-git pull origin main
-
-# Install new dependencies
-pip install -r requirements.txt
-
-# Add new tables/views (safe to run on existing database)
-psql -d advigilance -f sql/02_powerbi_views.sql
-
-# Download and enrich Criteo data
-python scripts/criteo_enricher.py path/to/criteo.txt --output data/enriched_clicks.csv
-
-# Load new data
-psql -d advigilance -c "\copy advigilance.click_stream FROM 'data/enriched_clicks.csv' CSV HEADER"
-```
-
----
-
 ## 🆚 Feature Comparison
 
 | Feature | v1.0 | v2.0 | Notes |
@@ -206,7 +152,7 @@ INCLUDE (fraud_score, is_suspicious);
 
 ---
 
-## 🎓 What You Can Now Say in Interviews
+## 🎓 Change Report -
 
 ### Before (v1.0)
 "I built a fraud detection system with synthetic data."
@@ -254,62 +200,6 @@ Based on feedback, we're planning:
 
 ---
 
-## ⚠️ Breaking Changes
-
-### Database Schema
-
-**Changed columns:**
-- `fraud_reasons` now uses PostgreSQL array type `TEXT[]` instead of `VARCHAR`
-- `geo_latitude`/`geo_longitude` changed from `FLOAT` to `DECIMAL(10,8)` for precision
-
-**Migration SQL:**
-```sql
--- If upgrading existing v1.0 database
-ALTER TABLE click_stream 
-    ALTER COLUMN fraud_reasons TYPE TEXT[] USING string_to_array(fraud_reasons, ',');
-
-ALTER TABLE click_stream 
-    ALTER COLUMN geo_latitude TYPE DECIMAL(10,8) USING geo_latitude::DECIMAL(10,8);
-```
-
-### Python Scripts
-
-**data_generator.py renamed to synthetic_generator.py**
-```bash
-# Old (v1.0)
-python scripts/data_generator.py --events 100000
-
-# New (v2.0)
-python scripts/synthetic_generator.py --events 100000  # For testing only
-python scripts/criteo_enricher.py train.txt            # For production data
-```
-
-### Configuration Files
-
-**New environment variables:**
-```bash
-# Add to .env file
-export POWERBI_REFRESH_INTERVAL=300  # seconds
-export CRITEO_DATASET_PATH=/path/to/criteo/train.txt
-```
-
----
-
-## 📝 Upgrade Checklist
-
-Before upgrading, complete this checklist:
-
-- [ ] Backup existing database: `pg_dump advigilance > backup.sql`
-- [ ] Read breaking changes section above
-- [ ] Update environment variables in `.env`
-- [ ] Test setup script on development environment first
-- [ ] Review new documentation (especially Power BI guide)
-- [ ] Update any custom SQL queries to use new views
-- [ ] Reconfigure dashboard refresh schedules
-- [ ] Notify team members of new features
-
----
-
 ## 🙏 Acknowledgments
 
 **v2.0 Contributors:**
@@ -323,23 +213,6 @@ Before upgrading, complete this checklist:
 
 ---
 
-## 📞 Support
-
-**Having issues with v2.0?**
-
-1. Check the documentation:
-   - [QUICKSTART.md](QUICKSTART.md)
-   - [docs/DATA_SOURCE_GUIDE.md](docs/DATA_SOURCE_GUIDE.md)
-   - [docs/POWERBI_INTEGRATION.md](docs/POWERBI_INTEGRATION.md)
-
-2. Review common issues:
-   - [Troubleshooting Guide](docs/TROUBLESHOOTING.md)
-
-3. Create an issue:
-   - [GitHub Issues](https://github.com/yourusername/advigilance/issues)
-
----
-
 ## 📄 License
 
 AdVigilance v2.0 is released under the MIT License.
@@ -348,6 +221,3 @@ AdVigilance v2.0 is released under the MIT License.
 
 ---
 
-**Enjoy AdVigilance v2.0! 🎉**
-
-For the full changelog, see [CHANGELOG.md](CHANGELOG.md)
