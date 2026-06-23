@@ -36,56 +36,6 @@ AdVigilance analyzes multiple data streams in real-time to detect:
 
 ---
 
-## 🏗️ Architecture
-
-```
-┌─────────────────┐
-│   Ad Networks   │
-│  (Google Ads,   │
-│ Facebook, etc.) │
-└────────┬────────┘
-         │ Real-time Click Stream
-         ▼
-┌─────────────────────────────────────┐
-│     Data Ingestion Layer            │
-│  • Apache Kafka / Kinesis           │
-│  • Log Replay Simulator (Dev)      │
-└────────┬────────────────────────────┘
-         │
-         ▼
-┌─────────────────────────────────────┐
-│      Database Layer                 │
-│  • PostgreSQL (Time-Series Opts)   │
-│  • Snowflake (Production Scale)    │
-│                                     │
-│  Tables:                            │
-│  ├── click_stream                   │
-│  ├── conversion_stream              │
-│  ├── bot_blacklist                  │
-│  └── campaign_budgets               │
-└────────┬────────────────────────────┘
-         │
-         ▼
-┌─────────────────────────────────────┐
-│    Fraud Detection Engine           │
-│  • Complex SQL Analytics            │
-│  • Window Functions                 │
-│  • Time-Series Joins                │
-│  • Pattern Recognition              │
-└────────┬────────────────────────────┘
-         │
-         ▼
-┌─────────────────────────────────────┐
-│      Action Layer                   │
-│  • Real-time IP Blocking            │
-│  • Alert Generation                 │
-│  • Dashboard Updates                │
-│  • WAF Integration                  │
-└─────────────────────────────────────┘
-```
-
----
-
 ## ✨ Key Features
 
 ### 1. **Multi-Stream Data Processing**
@@ -483,37 +433,6 @@ python scripts/generate_report.py --output dashboard/fraud_report.html
 
 ---
 
-## 📁 Project Structure
-
-```
-advigilance/
-├── README.md                          # This file
-├── requirements.txt                   # Python dependencies
-├── sql/
-│   ├── 01_create_schema.sql          # Database tables
-│   ├── 02_create_indexes.sql         # Performance optimization
-│   ├── 03_fraud_detection_queries.sql # Core detection logic
-│   ├── 04_attribution_analysis.sql   # Campaign ROI
-│   └── 05_reporting_views.sql        # Dashboard queries
-├── scripts/
-│   ├── data_generator.py             # Simulate ad traffic
-│   ├── fraud_detector.py             # Main detection engine
-│   ├── blacklist_updater.py          # Update threat intelligence
-│   └── generate_report.py            # Create dashboards
-├── data/
-│   ├── sample_clicks.csv             # Sample data
-│   ├── sample_conversions.csv
-│   └── bot_blacklist.csv
-├── dashboard/
-│   └── fraud_report.html             # Interactive dashboard
-└── docs/
-    ├── ARCHITECTURE.md               # System design
-    ├── SQL_GUIDE.md                  # Query explanations
-    └── PERFORMANCE.md                # Optimization tips
-```
-
----
-
 ## 🎓 Skills Demonstrated
 
 This project showcases expertise across multiple domains:
@@ -572,15 +491,6 @@ fraud_score = model.predict_proba(new_click_features)
 
 ---
 
-## 📚 Learning Resources
-
-- **AdTech Fundamentals**: [IAB's Programmatic Guide](https://www.iab.com/)
-- **SQL Mastery**: [PostgreSQL Window Functions](https://www.postgresql.org/docs/current/tutorial-window.html)
-- **Fraud Detection**: [Google's Invalid Traffic Guidelines](https://support.google.com/google-ads/answer/7654160)
-- **Data Engineering**: [The Data Engineering Cookbook](https://github.com/andkret/Cookbook)
-
----
-
 ## 📄 License
 
 This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
@@ -594,15 +504,6 @@ Contributions welcome! Areas of interest:
 - Integration with commercial threat intelligence feeds
 - Performance optimizations for billion-row tables
 - Visualization improvements
-
----
-
-## 📞 Contact
-
-**Project Author**: [Your Name]  
-**LinkedIn**: [Your LinkedIn]  
-**Portfolio**: [Your Website]  
-**Email**: [Your Email]
 
 ---
 
